@@ -2,6 +2,7 @@ name: Matrix Demo
 on: push
 jobs:
   build:
+    # will continue executing all instances of this job even if one fails
     continue-on-error: true
     strategy:
       matrix:
@@ -13,6 +14,7 @@ jobs:
         exclude:
           - node-version: 12
             operating-system: windows-latest
+    # dynamic value from matrix:
     runs-on: ${{ matrix.operating-system }}
     steps:
       - name: Get Code
@@ -20,4 +22,5 @@ jobs:
       - name: Install NodeJS
         uses: actions/setup-node@v3
         with:
+          # dynamic value from matrix:
           node-version: ${{ matrix.node-version }}

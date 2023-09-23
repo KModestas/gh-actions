@@ -1,0 +1,37 @@
+# Custom composite action for running steps to cache and use node_modules
+
+name: 'Get & Cache Dependencies'
+description: 'Get the dependencies (via npm) and cache them.'
+# our action accepts an input:
+inputs:
+  caching:
+    description: 'Whether to cache dependencies or not.'
+    required: false
+    default: 'true'
+# and produces an output:
+outputs:
+  used-cache:
+    description: 'Whether the cache was used.'
+    # we get this output value from the step with id: install below
+    value: ${{ steps.install.outputs.cache }}
+# we must specify that this is a composite action:
+runs:
+  using: 'composite'
+  steps:
+    - name: Cache dependencies
+      if: inputs.caching == 'true'
+      id: cache
+      # we can still use other actions within your own custom actions:
+      uses: actions/cache@v3
+      with:
+        path: node_modules
+        key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+    - name: Install dependencies
+      id: install
+      # only installed dependencies if there was no cache hit or input has passed in to disable caching:
+      if: steps.cache.outputs.cache-hit != 'true' || inputs.caching != 'true'
+      run: |
+        npm ci
+        echo "cache='${{ inputs.caching }}'" >> $GITHUB_OUTPUT
+      # NOTE: when using the run command in a composite action you need to explicity specify the shell you want to use:
+      shell: bash

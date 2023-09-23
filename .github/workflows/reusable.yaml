@@ -1,0 +1,39 @@
+# this reusable workflow is imported and used in use-reusable.yaml
+name: Reusable Deploy
+on:
+  workflow_call:
+    # it accept one input:
+    inputs:
+      artifact-name:
+        description: The name of the deployable artifact files
+        required: false
+        default: dist
+        type: string
+    # .. and returns an output (produced by the job below)
+    outputs:
+      result:
+        description: The result of the deployment operation
+        value: ${{ jobs.deploy.outputs.outcome }}
+    # a workflow can even accept secrets if need be:
+    # secrets:
+    # some-secret:
+    # required: false
+jobs:
+  deploy:
+    outputs:
+      # takes the output produced by the step below and makes it avaliable to the jobs context
+      outcome: ${{ steps.set-result.outputs.step-result }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.artifact-name }}
+      - name: List files
+        run: ls
+      - name: Output information
+        run: echo "Deploying & uploading..."
+        # this step produces an output
+      - name: Set result output
+        id: set-result
+        run: echo "step-result=success" >> $GITHUB_OUTPUT

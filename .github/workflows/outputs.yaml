@@ -1,0 +1,24 @@
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    # Map the output from each step to a job output (will be avaliable to other jobs)
+    # we access each output by referencing the id of each step
+    outputs:
+      output1: ${{ steps.step1.outputs.test }}
+      output2: ${{ steps.step2.outputs.test }}
+    steps:
+      - id: step1
+        # syntax for setting the key value pair as an output (we redirect / write the key/value to a special gh file)
+        run: echo "test=hello" >> "$GITHUB_OUTPUT"
+      - id: step2
+        run: echo "test=world" >> "$GITHUB_OUTPUT"
+  job2:
+    runs-on: ubuntu-latest
+    # this job needs job1 to finish running before it can run and access its outputs
+    needs: job1
+    steps:
+      - env:
+          # this other job can now access those outputs from the first job via the needs context
+          OUTPUT1: ${{needs.job1.outputs.output1}}
+          OUTPUT2: ${{needs.job1.outputs.output2}}
+        run: echo "$OUTPUT1 $OUTPUT2"

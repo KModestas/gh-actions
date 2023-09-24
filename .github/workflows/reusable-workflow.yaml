@@ -1,5 +1,5 @@
-# this reusable workflow is imported and used in use-reusable.yaml
-name: Reusable Deploy
+# this reusable workflow is imported and used in use-reusable-workflow.yaml
+name: Reusable Workflow Example
 on:
   workflow_call:
     # it accept one input:

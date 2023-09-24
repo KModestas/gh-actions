@@ -2,7 +2,7 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     # Map the output from each step to a job output (will be avaliable to other jobs)
-    # we access each output by referencing the id of each step
+    # we access each steps output by referencing the id of each step
     outputs:
       output1: ${{ steps.step1.outputs.test }}
       output2: ${{ steps.step2.outputs.test }}

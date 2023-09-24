@@ -26,8 +26,9 @@ jobs:
       mongodb:
         image: mongo
         # forward port from host:container. Remember a port identifies a process (program) running on a machine.
-        # in order for other programs within your runner (e.g. tests) to communicate with your test DB that is running in the service container, we must map a port from the runner to the test DB in the service container.
-        # The docker daemon on the host (runner) will run a program at port 27017 to forward all traffic to the port 27017 on the service container
+        # in order for other programs within your runner (e.g. your tests) to communicate with mongoDB in the service container, we must map a port from the runner to the DB in the service container.
+        # What actually happens is the docker daemon on the host (runner) will run a network proxy program at port 27017 to listen to traffic and forward it to port 27017 on the service container (which is running the DB at that port)
+        # E.g. unit test makes request to DB at port 27017 => forwarded to port 27017 in the service container and handled there.
         ports:
           - 27017:27017
         env:

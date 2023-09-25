@@ -1,5 +1,5 @@
 # NOTE: focus on the deploy job below, the rest of the jobs are the same as previous examples
-name: Using Reusable Workflow
+name: Using Reusable Workflow 
 on:
   push:
     branches:

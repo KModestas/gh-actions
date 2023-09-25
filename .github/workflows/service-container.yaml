@@ -1,4 +1,4 @@
-name: Service Container Example
+name: Service Container Demo
 on:
   push:
     branches:

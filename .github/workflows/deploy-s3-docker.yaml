@@ -1,4 +1,4 @@
-name: S3 Docker Deployment
+name: S3 Docker Deployment Demo
 on:
   push:
     branches:

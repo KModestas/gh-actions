@@ -1,6 +1,6 @@
 # this reusable workflow is imported and used in use-reusable-workflow.yaml. 
 # It contains the job for deploying static files (dummy logic)
-name: Reusable Workflow Demo
+name: Reusable Workflow
 on:
   workflow_call:
     # it accepts one input:

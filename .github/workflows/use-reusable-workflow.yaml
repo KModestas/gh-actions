@@ -70,7 +70,7 @@ jobs:
   deploy:
     needs: build
     # import and use reusable workflow that contains the deploy job
-    uses: ./.github/workflows/reusable.yml
+    uses: ./.github/workflows/reusable-workflow.yml
     with:
       artifact-name: dist-files
     # could pass secrets to re-usable workflow if needed:

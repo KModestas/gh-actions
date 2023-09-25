@@ -1,3 +1,5 @@
+# same as deploy-s3-docker except its utilising a custom javascript action to deploy
+
 name: S3 JS Deployment
 on:
   push:

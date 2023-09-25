@@ -1,8 +1,9 @@
-# this reusable workflow is imported and used in use-reusable-workflow.yaml
+# this reusable workflow is imported and used in use-reusable-workflow.yaml. 
+# It contains the job for deploying static files (dummy logic)
 name: Reusable Workflow Example
 on:
   workflow_call:
-    # it accept one input:
+    # it accepts one input:
     inputs:
       artifact-name:
         description: The name of the deployable artifact files
@@ -25,10 +26,12 @@ jobs:
       outcome: ${{ steps.set-result.outputs.step-result }}
     runs-on: ubuntu-latest
     steps:
+        # downloads the dist files based on the artifact-name provided in use-reusable-workflow.yaml
       - name: Get Code
         uses: actions/download-artifact@v3
         with:
           name: ${{ inputs.artifact-name }}
+        # since no path is provided, the dist folder will be downloaded in the root, we can then ls and see it
       - name: List files
         run: ls
       - name: Output information

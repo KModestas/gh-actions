@@ -18,5 +18,4 @@ outputs:
     description: 'The URL of the deployed website.'
 runs:
   using: 'docker'
-  # path to the image which will be
   image: 'Dockerfile'

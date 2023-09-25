@@ -1,3 +1,4 @@
+# NOTE: focus on the deploy job below, the rest of the jobs are the same as previous examples
 name: Using Reusable Workflow
 on:
   push:
@@ -68,9 +69,11 @@ jobs:
           path: dist
   deploy:
     needs: build
+    # import and use reusable workflow that contains the deploy job
     uses: ./.github/workflows/reusable.yml
     with:
       artifact-name: dist-files
+    # could pass secrets to re-usable workflow if needed:
     # secrets:
       # some-secret: ${{ secrets.some-secret }}
   print-deploy-result:

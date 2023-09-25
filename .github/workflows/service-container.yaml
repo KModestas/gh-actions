@@ -14,7 +14,7 @@ jobs:
     # run the entire job inside a docker container based on an image
     # container:
     #   image: node:16
-    # define env vars to be used through the jobs steps  
+    # define env vars to be accessible in all steps  
     env:
       MONGODB_CONNECTION_PROTOCOL: mongodb
       MONGODB_CLUSTER_ADDRESS: 127.0.0.1:27017

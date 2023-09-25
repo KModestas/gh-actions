@@ -1,7 +1,7 @@
 # Custom composite action for running steps to cache and use node_modules
 
 name: 'Get & Cache Dependencies'
-description: 'Get the dependencies (via npm) and cache them.'
+description: 'Get dependencies (via npm) and cache them.'
 # our action accepts an input:
 inputs:
   caching:
